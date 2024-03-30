@@ -54,6 +54,10 @@ peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameO
 echo "Querying the committed chaincode definitions on the channel..."
 peer lifecycle chaincode querycommitted --channelID mychannel --name basic --cafile "${PWD}/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem"
 
+# Changing the permission of the organizations folder
+echo "Changing the permission of the organizations folder..."
+chmod 777 -R ./organizations
+
 # Invoking chaincode to query all data
 echo "Invoking chaincode to query all data..."
 peer chaincode query -C mychannel -n basic -c '{"Args":["getAllData","\"ad\""]}'
