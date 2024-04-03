@@ -1,0 +1,12 @@
+services:
+  portal.org1.example.com:
+    container_name: portal.org1.example.com-a.k.a-company_a
+    build: "${PORTAL_PATH}"
+    volumes:
+    - ./companies/companyA/.env:/app/.env:ro
+    - ./companies/companyA/db:/app/db:ro
+    - ../test-network/organizations/peerOrganizations/org1.example.com:/crypto:ro
+    ports:
+    - "80:3000"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
