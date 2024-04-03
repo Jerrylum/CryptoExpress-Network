@@ -15,3 +15,10 @@ Then, start the test network with Fabric orderer, 3 organizations with 1 peer no
 ```bash
 cd test-network && sudo ./initNetwork.sh <chaincode_path>
 ```
+
+After that, start the portals for each organization:
+
+```bash
+cd .. # Go back to the root directory
+cd test-portals && sudo ./initPortals.sh <portal_path>
+```
