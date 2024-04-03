@@ -1,12 +1,46 @@
 services:
+  test-portals-image:
+    image: test-portals-image
+    command: ['echo', 'build completed']
+    build:
+      context: "${PORTAL_PATH}"
+      dockerfile: Dockerfile
   portal.org1.example.com:
+    image: test-portals-image
     container_name: portal.org1.example.com-a.k.a-company_a
-    build: "${PORTAL_PATH}"
+    depends_on:
+    - test-portals-image
     volumes:
     - ./companies/companyA/.env:/app/.env:ro
     - ./companies/companyA/db:/app/db:ro
     - ../test-network/organizations/peerOrganizations/org1.example.com:/crypto:ro
     ports:
     - "80:3000"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+  portal.org2.example.com:
+    image: test-portals-image
+    container_name: portal.org2.example.com-a.k.a-company_b
+    depends_on:
+    - test-portals-image
+    volumes:
+    - ./companies/companyB/.env:/app/.env:ro
+    - ./companies/companyB/db:/app/db:ro
+    - ../test-network/organizations/peerOrganizations/org2.example.com:/crypto:ro
+    ports:
+    - "81:3000"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+  portal.org3.example.com:
+    image: test-portals-image
+    container_name: portal.org3.example.com-a.k.a-company_c
+    depends_on:
+    - test-portals-image
+    volumes:
+    - ./companies/companyC/.env:/app/.env:ro
+    - ./companies/companyC/db:/app/db:ro
+    - ../test-network/organizations/peerOrganizations/org3.example.com:/crypto:ro
+    ports:
+    - "82:3000"
     extra_hosts:
     - "host.docker.internal:host-gateway"
